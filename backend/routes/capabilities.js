@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+
+const capabilityController = require("../controllers/capabilityController");
+
+// ✅ correct routes
+router.post("/capabilities/save-all", capabilityController.saveAll);
+router.get("/parents", capabilityController.getParents);
+router.get("/capabilities/:parentId", capabilityController.getCapabilities);
+router.put("/capabilities/:id", capabilityController.updateCapability); 
+
+module.exports = router;

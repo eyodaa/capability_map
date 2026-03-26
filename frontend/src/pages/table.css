@@ -1,0 +1,21 @@
+.cap-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.cap-table th,
+.cap-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.cap-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+
+.cap-table tr:hover {
+  background-color: #f9f9f9;
+}

@@ -1,0 +1,95 @@
+.description-panel {
+  padding: 30px;
+  background: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-title, textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  margin-bottom: 15px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.btn-save {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-edit {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.maturity-tag {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.m-1 { background-color: #1e7e34; }
+.m-2 { background-color: #b48e1c; }
+.m-3 { background-color: #a52821; }
+.maturity-selector{
+  display:flex;
+  gap:12px;
+  margin-top:10px;
+}
+
+.level-dot{
+  width:60px;
+  height:32px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:600;
+  color:white;
+  cursor:pointer;
+
+  opacity:0.6;
+  transition:all 0.25s ease;
+}
+
+.level-dot:hover{
+  transform:scale(1.05);
+  opacity:1;
+}
+
+.level-dot.active{
+  opacity:1;
+  box-shadow:0 0 6px rgba(0,0,0,0.3);
+}
+
+.green{
+  background:#2ecc71;
+}
+
+.orange{
+  background:#f39c12;
+}
+
+.red{
+  background:#e74c3c;
+}

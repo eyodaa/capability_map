@@ -10,7 +10,7 @@ function CapabilityGrid({ capabilities, onSelect }) {
   const [selectedParent, setSelectedParent] = useState(null);
   const [selectedChild, setSelectedChild] = useState(null);
 
-  // ✅ Compute maturity with hierarchy logic
+
   const maturityMap = computeCapabilityMaturity(capabilities);
 
   const parents = capabilities.filter(c => !c.parent_id);
@@ -29,17 +29,17 @@ function CapabilityGrid({ capabilities, onSelect }) {
         return (
           <div key={parent.id} className="nested-grid-layout">
 
-            {/* PARENT */}
+            
             <CapabilityBox
-              capability={maturityMap[parent.id]}   // ✅ FIXED
+              capability={maturityMap[parent.id]}   
               onClick={() => {
                 setSelectedParent(parent.id);
                 setSelectedChild(null);
-                onSelect(maturityMap[parent.id]);  // ✅ FIXED
+                onSelect(maturityMap[parent.id]); 
               }}
             />
 
-            {/* CHILDREN */}
+            
             {parentActive && (
               <div className="children-row">
 
@@ -52,22 +52,22 @@ function CapabilityGrid({ capabilities, onSelect }) {
                     <div key={child.id} className="child-card">
 
                       <CapabilityBox
-                        capability={maturityMap[child.id]}   // ✅ FIXED
+                        capability={maturityMap[child.id]}   
                         onClick={() => {
                           setSelectedChild(child.id);
-                          onSelect(maturityMap[child.id]);  // ✅ FIXED
+                          onSelect(maturityMap[child.id]);  
                         }}
                       />
 
-                      {/* SUB CHILDREN */}
+                      
                       {childActive && (
                         <div className="sub-row">
 
                           {subChildren.map(sub => (
                             <CapabilityBox
                               key={sub.id}
-                              capability={maturityMap[sub.id]}   // ✅ FIXED
-                              onClick={() => onSelect(maturityMap[sub.id])} // ✅ FIXED
+                              capability={maturityMap[sub.id]}   
+                              onClick={() => onSelect(maturityMap[sub.id])} 
                             />
                           ))}
 

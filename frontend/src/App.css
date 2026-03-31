@@ -35,3 +35,19 @@ display:flex;
 flex-direction:column;
 gap:15px;
 }
+link {
+    width: '100%';
+    textAlign: 'center';
+    padding: '15px 10px';
+    color: '#ffffff'; 
+    fontSize: '0.9rem';
+    textTransform: 'uppercase';
+    letter-spacing: '0.5px';
+    textDecoration: 'none';
+    cursor: 'pointer';
+    transition: 'background 0.3s';
+  }
+.link:hover {
+    background: '#004099'; 
+    color: '#ffffff'; 
+  }

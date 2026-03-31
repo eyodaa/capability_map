@@ -5,6 +5,45 @@
   display: flex;
   flex-direction: column;
 }
+.details {
+  width: 240px; /* Your narrowed size */
+  background: #fff;
+  border-left: 1px solid #ddd;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box; /* Crucial: keeps padding inside the 240px */
+  overflow-x: hidden;    /* Prevents side-scrolling in the panel */
+}
+
+/* Fix for the Header - prevents "MSME Lending" from cutting */
+.details h2, .details h3 {
+  font-size: 1.2rem;
+  word-wrap: break-word; /* Forces long words to wrap to next line */
+  white-space: normal;   /* Allows text to wrap */
+  margin: 0;
+  color: #1a202c;
+}
+
+/* Fix for the Objective and Textarea */
+.details label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #4a5568;
+}
+
+.details textarea {
+  width: 100%;           /* Takes full width of the 240px container */
+  max-width: 100%;       /* Prevents stretching past the panel */
+  min-height: 120px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding doesn't push it out */
+  font-size: 0.9rem;
+  resize: vertical;      /* Only allow up/down resizing */
+}
 
 .edit-title, textarea, select {
   width: 100%;

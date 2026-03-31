@@ -32,57 +32,26 @@ const DescriptionPanel = ({ item, refreshCapabilities, updateCapabilityLocal }) 
     2: "border-orange-500 text-orange-600 bg-orange-50",
     1: "border-red-500 text-red-600 bg-red-50",
   };
-/*
- const handleSave = async () => {
-  try {
 
-    console.log("Updating capability:", item.id);
-    console.log("New level:", level);
-
-    await updateCapability(item.id, {
-  description: description,
-  maturity_level: level
-});
-
-
-// update dashboard state instantly
-if (updateCapabilityLocal) {
-  updateCapabilityLocal(item.id, {
-    description: description,
-    maturity_level: level
-  });
-}
-
-    setIsEditing(false);
-
-    if (refreshCapabilities) {
-      refreshCapabilities();
-    }
-
-  } catch (error) {
-    console.error("Update failed", error);
-  }
-};
-*/const handleSave = async () => {
-  // 1. Update the local Dashboard state instantly
+const handleSave = async () => {
+  
   if (updateCapabilityLocal) {
     updateCapabilityLocal(item.id, {
       description: description,
-      maturity_level: parseInt(level, 10) // 🛡️ Ensure it's a number
+      maturity_level: parseInt(level, 10) 
     });
   }
 
-  // 2. Close the editing mode
+  
   setIsEditing(false);
   
-  // 3. Optional: Add a small visual hint that they still need to click the 
-  // Global Save button to make it permanent.
+  
   console.log("Local state updated. Click 'Save to Database' to persist.");
 };
   return (
     <aside className="w-96 bg-white border-l border-slate-200 flex flex-col shadow-inner">
 
-      {/* Header */}
+      
       <div className="p-6 border-b border-slate-100 bg-slate-50/50">
 
         <div
@@ -97,7 +66,7 @@ if (updateCapabilityLocal) {
 
       </div>
 
-      {/* Body */}
+      
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
 
         <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
@@ -120,7 +89,7 @@ if (updateCapabilityLocal) {
           )}
 
         </div>
-        {/* Maturity Level Editing */}
+        
         {isEditing && (
           <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm">
 
@@ -141,7 +110,7 @@ if (updateCapabilityLocal) {
 
       </div>
 
-      {/* Footer Buttons */}
+      
       <div className="p-6 bg-slate-50 border-t border-slate-200 space-y-2">
 
         {!isEditing ? (

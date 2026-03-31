@@ -7,7 +7,7 @@ import {
 } from "../services/capabilityService";
 import DescriptionPanel from "../components/layout/DescriptionPanel";
 import { computeCapabilityMaturity } from "../utils/capabilityUtils";
-
+import "./dashboard.css";
 function Dashboard() {
   const [boxes, setBoxes] = useState([]);
   const [selectedDescription, setSelectedDescription] = useState(null);
@@ -128,7 +128,7 @@ const [currentParentId, setCurrentParentId] = useState(null);
       console.error("Fetch error:", error);
     }
   };
-
+/*
   return (
     <div
       style={{
@@ -147,7 +147,7 @@ const [currentParentId, setCurrentParentId] = useState(null);
           overflowY: "auto"
         }}
       >
-        {/* HEADER */}
+        
         <div
           style={{
             display: "flex",
@@ -192,4 +192,46 @@ const [currentParentId, setCurrentParentId] = useState(null);
   );
 }
 
+export default Dashboard;*/
+
+return (
+  <div className="dashboard">
+    
+    <div className="sidebar">
+      <Sidebar onParentSelect={handleParentSelect} />
+    </div>
+
+    <div className="main">
+      {/* HEADER */}
+      <div className="header">
+        <h2>Capability Map</h2>
+
+        <button
+          onClick={handleGlobalSave}
+          disabled={isSaving || boxes.length === 0}
+          className="save-btn"
+        >
+          {isSaving ? "Saving..." : "Save Changes"}
+        </button>
+      </div>
+
+      <div className="grid-container">
+        <CapabilityGrid
+          capabilities={boxes}
+          onSelect={handleBoxClick}
+        />
+      </div>
+    </div>
+
+    <div className="details">
+      <DescriptionPanel
+        item={selectedDescription}
+        updateCapabilityLocal={updateCapabilityLocal}
+      />
+    </div>
+
+  </div>
+);
+  
+}
 export default Dashboard;

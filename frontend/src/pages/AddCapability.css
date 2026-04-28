@@ -1,0 +1,15 @@
+.builder-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.builder-item:hover {
+  border: 2px dashed #3b82f6;
+}
+
+.children {
+  margin-left: 20px;
+}

@@ -3,7 +3,7 @@ export const computeCapabilityMaturity = (capabilities) => {
   const capabilityMap = {};
   const childrenMap = {};
 
-  // Create lookup maps
+
   capabilities.forEach(cap => {
     capabilityMap[cap.id] = { ...cap };
 
@@ -14,12 +14,12 @@ export const computeCapabilityMaturity = (capabilities) => {
     childrenMap[cap.parent_id].push(cap.id);
   });
 
-  // Recursive function to calculate maturity
+  
   const calculate = (id) => {
 
     const children = childrenMap[id];
 
-    // ✅ Leaf node
+
     if (!children || children.length === 0) {
       capabilityMap[id].calculated_maturity =
         capabilityMap[id].maturity_level;
@@ -27,7 +27,6 @@ export const computeCapabilityMaturity = (capabilities) => {
       return capabilityMap[id].calculated_maturity;
     }
 
-    // ✅ Parent node
     const childMaturity = children.map(childId => calculate(childId));
 
     const avg =
@@ -39,7 +38,7 @@ export const computeCapabilityMaturity = (capabilities) => {
     return capabilityMap[id].calculated_maturity;
   };
 
-  // Run calculation for all nodes
+  
   capabilities.forEach(cap => calculate(cap.id));
 
   return capabilityMap;

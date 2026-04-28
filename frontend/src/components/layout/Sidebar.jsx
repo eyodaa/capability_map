@@ -20,7 +20,10 @@ function Sidebar({ onParentSelect }) {
     <div className="sidebar">
  <h2>              <Link to="/table">Table View</Link>    </h2>    
 <h2><Link to="/explorer">Capability Explorer</Link> </h2>
+ 
+     < h2><Link to="/add">Add Capability</Link> </h2>
       <h3>Capabilities </h3>
+
 
       {parents.map((p) => (
 

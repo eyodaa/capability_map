@@ -3,7 +3,6 @@ import { getColor } from "../../utils/colorUtils";
 
 const CapabilityBox = ({ capability, onClick }) => {
 
-  // ✅ Use calculated maturity if available, fallback to original
   const maturity =
     capability.calculated_maturity ?? capability.maturity_level;
 

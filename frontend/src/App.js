@@ -18,7 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import CapabilityExplorer from "./pages/CapabilityExplorer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCapabilities} from "./services/capabilityService";
-
+import AddCapability from "./pages/AddCapability";
 function App() {
 
   const [capabilities, setCapabilities] = useState([]);
@@ -50,7 +50,7 @@ function App() {
             <CapabilityExplorer capabilities={capabilities} />
           }
         />
-      
+      <Route path="/add" element={<AddCapability />} />
 
       </Routes>
     </Router>

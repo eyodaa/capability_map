@@ -1,3 +1,4 @@
+
 const db = require("../db");
 
 exports.getParents = async (req, res) => {
@@ -61,9 +62,9 @@ exports.saveAll = async (req, res) => {
       const mLevel = parseInt(cap.maturity_level, 10);
 
       await db.query(
-        "UPDATE capabilities SET maturity_level = ? WHERE id = ?",
-        [mLevel, cap.id]
-      );
+  "UPDATE capabilities SET maturity_level = ?, description = ? WHERE id = ?",
+  [mLevel, cap.description || "", cap.id]
+);
     }
 
     res.status(200).json({ message: "Database updated successfully!" });
@@ -72,4 +73,14 @@ exports.saveAll = async (req, res) => {
     console.error("Critical Save Error:", error);
     res.status(500).json({ error: error.message });
   }
+};
+exports.createCapability = async (req, res) => {
+  const { name, description, maturity_level, parent_id } = req.body;
+
+  await db.query(
+    "INSERT INTO capabilities (name, description, maturity_level, parent_id) VALUES (?, ?, ?, ?)",
+    [name, description, maturity_level, parent_id || null]
+  );
+
+  res.json({ message: "Created" });
 };

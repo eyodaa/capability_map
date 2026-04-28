@@ -189,3 +189,33 @@
     padding: 8px 4px 4px 4px;
   }
 }
+.custom-tooltip {
+  position: fixed;
+  background: #0e3694;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  max-width: 250px;
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  animation: fadeIn 0.15s ease-in-out;
+}
+
+.tooltip-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.tooltip-maturity {
+  font-size: 11px;
+  margin-bottom: 6px;
+  color: #94a3b8;
+}
+
+.tooltip-desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e2e8f0;
+}

@@ -8,7 +8,7 @@ const db = mysql.createPool({
     port: 3307
 });
 
-// Optional test connection
+
 (async () => {
     try {
         const connection = await db.getConnection();

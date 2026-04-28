@@ -8,39 +8,41 @@ import {
 import DescriptionPanel from "../components/layout/DescriptionPanel";
 import { computeCapabilityMaturity } from "../utils/capabilityUtils";
 import "./dashboard.css";
+
 function Dashboard() {
   const [boxes, setBoxes] = useState([]);
-  const [selectedDescription, setSelectedDescription] = useState(null);
-const [currentParentId, setCurrentParentId] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
+  // ✅ Single source of truth
+  const selectedDescription = boxes.find(
+    (box) => box.id === selectedId
+  );
 
+  // ✅ FIXED FUNCTION
   const updateCapabilityLocal = (id, updates) => {
     setBoxes((prev) => {
-  
       const updated = prev.map((box) =>
         box.id === id ? { ...box, ...updates } : box
       );
 
-      
       const maturityMap = computeCapabilityMaturity(updated);
 
-      
-      return updated.map((box) => ({
+      const finalUpdated = updated.map((box) => ({
         ...box,
         maturity_level:
           maturityMap[box.id]?.calculated_maturity || box.maturity_level
       }));
+
+      return finalUpdated; // ✅ ONLY return here
     });
   };
 
-  
   const handleGlobalSave = async () => {
     if (boxes.length === 0) return;
 
     setIsSaving(true);
     try {
-      
       const maturityMap = computeCapabilityMaturity(boxes);
 
       const finalDataToSave = boxes.map((box) => ({
@@ -62,10 +64,7 @@ const [currentParentId, setCurrentParentId] = useState(null);
     }
   };
 
-
   const handleParentSelect = async (parent) => {
-    setCurrentParentId(parent.id);
-
     try {
       const res = await getCapabilities(parent.id);
 
@@ -77,7 +76,6 @@ const [currentParentId, setCurrentParentId] = useState(null);
         }))
       ];
 
-      
       const maturityMap = computeCapabilityMaturity(initialData);
 
       const computedData = initialData.map((box) => ({
@@ -92,9 +90,8 @@ const [currentParentId, setCurrentParentId] = useState(null);
     }
   };
 
-  
   const handleBoxClick = async (capability) => {
-    setSelectedDescription(capability);
+    setSelectedId(capability.id);
 
     try {
       const res = await getCapabilities(capability.id);
@@ -115,7 +112,6 @@ const [currentParentId, setCurrentParentId] = useState(null);
 
         const updated = [...prev, ...childrenWithLevel];
 
-        
         const maturityMap = computeCapabilityMaturity(updated);
 
         return updated.map((box) => ({
@@ -128,110 +124,42 @@ const [currentParentId, setCurrentParentId] = useState(null);
       console.error("Fetch error:", error);
     }
   };
-/*
-  return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        backgroundColor: "#f8f9fa"
-      }}
-    >
-      <Sidebar onParentSelect={handleParentSelect} />
 
-      <div
-        style={{
-          flex: 1,
-          padding: "20px",
-          position: "relative",
-          overflowY: "auto"
-        }}
-      >
-        
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "20px",
-            borderBottom: "1px solid #ddd",
-            paddingBottom: "10px"
-          }}
-        >
-          <h2 style={{ margin: 0, color: "#333" }}>Capability Map</h2>
+  return (
+    <div className="dashboard">
+      <div className="sidebar">
+        <Sidebar onParentSelect={handleParentSelect} />
+      </div>
+
+      <div className="main">
+        <div className="header">
+          <h2>Capability Map</h2>
 
           <button
             onClick={handleGlobalSave}
             disabled={isSaving || boxes.length === 0}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: isSaving ? "#ccc" : "#007bff",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: isSaving ? "not-allowed" : "pointer",
-              fontWeight: "bold",
-              boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
-            }}
+            className="save-btn"
           >
             {isSaving ? "Saving..." : "Save Changes"}
           </button>
         </div>
 
-        <CapabilityGrid
-          capabilities={boxes}
-          onSelect={handleBoxClick}
-        />
+        <div className="grid-container">
+          <CapabilityGrid
+            capabilities={boxes}
+            onSelect={handleBoxClick}
+          />
+        </div>
       </div>
 
-      <DescriptionPanel
-        item={selectedDescription}
-        updateCapabilityLocal={updateCapabilityLocal}
-      />
+      <div className="details">
+        <DescriptionPanel
+          item={selectedDescription}
+          updateCapabilityLocal={updateCapabilityLocal}
+        />
+      </div>
     </div>
   );
 }
 
-export default Dashboard;*/
-
-return (
-  <div className="dashboard">
-    
-    <div className="sidebar">
-      <Sidebar onParentSelect={handleParentSelect} />
-    </div>
-
-    <div className="main">
-      {/* HEADER */}
-      <div className="header">
-        <h2>Capability Map</h2>
-
-        <button
-          onClick={handleGlobalSave}
-          disabled={isSaving || boxes.length === 0}
-          className="save-btn"
-        >
-          {isSaving ? "Saving..." : "Save Changes"}
-        </button>
-      </div>
-
-      <div className="grid-container">
-        <CapabilityGrid
-          capabilities={boxes}
-          onSelect={handleBoxClick}
-        />
-      </div>
-    </div>
-
-    <div className="details">
-      <DescriptionPanel
-        item={selectedDescription}
-        updateCapabilityLocal={updateCapabilityLocal}
-      />
-    </div>
-
-  </div>
-);
-  
-}
 export default Dashboard;

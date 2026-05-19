@@ -1,21 +1,275 @@
-.cap-table {
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f6f9;
+  font-family: "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.dashboard-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  padding: 32px;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.table-header-section {
+  margin-bottom: 24px;
+}
+
+.table-header-section h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.table-header-section p {
+  margin-top: 10px;
+  color: #4b5563;
+  font-size: 1rem;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.grid-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  min-width: 1200px;
 }
 
-.cap-table th,
-.cap-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
+.grid-table thead {
+  background: #f9fafb;
+}
+
+.grid-table th {
+  padding: 18px;
   text-align: left;
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.cap-table th {
-  background-color: #f4f4f4;
+.grid-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #eef2f7;
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   ROWS
+========================= */
+
+.row-lvl-1 {
+  background: #ffffff;
+}
+
+.row-lvl-2 {
+  background: #fafafa;
+}
+
+.row-lvl-3 {
+  background: #fcfcfc;
+}
+
+/* =========================
+   NAME COLUMN
+========================= */
+
+.name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.capability-name {
+  color: #1f2937;
+}
+
+.lvl-1 {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lvl-2 {
   font-weight: 600;
 }
 
-.cap-table tr:hover {
-  background-color: #f9f9f9;
+.lvl-3 {
+  font-style: italic;
+}
+
+/* =========================
+   STATUS DOT
+========================= */
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.m1 {
+  background: #ef4444;
+}
+
+.status-dot.m2 {
+  background: #f59e0b;
+}
+
+.status-dot.m3 {
+  background: #22c55e;
+}
+
+/* =========================
+   TAGS
+========================= */
+
+.maturity-tag,
+.layer-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* MATURITY */
+
+.maturity-tag.m1 {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.maturity-tag.m2 {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.maturity-tag.m3 {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* LAYERS */
+
+.layer-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: white;
+}
+
+.edit-btn {
+  background: #2563eb;
+}
+
+.save-btn {
+  background: #16a34a;
+}
+
+.cancel-btn {
+  background: #6b7280;
+}
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.action-buttons button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.edit-input,
+.edit-textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.92rem;
+}
+
+.edit-textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader {
+  padding: 60px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #4b5563;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .table-header-section h1 {
+    font-size: 1.6rem;
+  }
+
+  .grid-table {
+    min-width: 1000px;
+  }
 }

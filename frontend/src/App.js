@@ -1,59 +1,31 @@
-/*import React from "react";
+import React from "react";
+import { CapabilityProvider } from "./context/CapabilityContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Import your pages
 import Dashboard from "./pages/Dashboard";
 import CapabilityExplorer from "./pages/CapabilityExplorer";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-function App() {
-
-  return <Dashboard />;
-  <Route path="/explorer" element={
-  <CapabilityExplorer capabilities={capabilities} />
-} />
-
-}
-
-export default App;*/
-
-import React, { useEffect, useState } from "react";
-import Dashboard from "./pages/Dashboard";
-import CapabilityExplorer from "./pages/CapabilityExplorer";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { getCapabilities} from "./services/capabilityService";
 import AddCapability from "./pages/AddCapability";
+import TablePage from "./pages/table";
+import HomePortal from "./components/HomePortal"; // The new glass menu
+import Header from "./pages/header"; // The new header component
 function App() {
-
-  const [capabilities, setCapabilities] = useState([]);
-
-  // Load data once
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    const data = await getCapabilities();
-    setCapabilities(data);
-  };
-
   return (
-    <Router>
-      <Routes>
+    <CapabilityProvider>
+      <Router>
+         {/* The new header is now part of the main layout */}  
+        <Routes>
+          {/* 1. The Initial Glass Portal (The "Home" screen) */}
+          <Route path="/" element={<HomePortal />} />
 
-        {/* Dashboard */}
-        <Route
-          path="/"
-          element={<Dashboard capabilities={capabilities} />}
-        />
-
-        {/* Explorer Page */}
-        <Route
-          path="/explorer"
-          element={
-            <CapabilityExplorer capabilities={capabilities} />
-          }
-        />
-      <Route path="/add" element={<AddCapability />} />
-
-      </Routes>
-    </Router>
+          {/* 2. Your existing views, now accessible from the Portal */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/explorer" element={<CapabilityExplorer />} />
+          <Route path="/add" element={<AddCapability />} />
+          <Route path="/table" element={<TablePage />} />
+        </Routes>
+      </Router>
+    </CapabilityProvider>
   );
 }
 

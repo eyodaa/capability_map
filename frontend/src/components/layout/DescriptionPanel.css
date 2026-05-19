@@ -1,13 +1,13 @@
 .description-panel {
   padding: 30px;
-  background: #fff;
+  background: #4467c7;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 .details {
   width: 240px; /* Your narrowed size */
-  background: #fff;
+  background: #002e6d;
   border-left: 1px solid #ddd;
   padding: 15px;
   display: flex;

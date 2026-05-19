@@ -1,0 +1,150 @@
+/* portal.css */
+
+/* 1. Base Container (Ultra-Dark Navy with depth) */
+.portal-wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, #002244 0%, #000c1a 100%) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: white;
+}
+
+/* 2. Logo Watermark (Deeper Navy / Monochromatic) */
+.portal-bg-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  max-width: 900px;
+  /* Mute the logo, but not to zero */
+  opacity: 0.12; 
+  pointer-events: none;
+  z-index: 1;
+  /* Use a subtle color filter to integrate it better than pure grayscale */
+  filter: contrast(80%) sepia(20%) hue-rotate(180deg);
+}
+
+/* 3. The Modern Card (Sculpted Glass / Neumorphic Hybrid) */
+.glass-menu-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  
+  /* The "Inner Glow" (Super thin white edge) */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 28px !important; /* Slightly softer corners */
+  padding: 30px 35px !important; /* Generous padding */
+  width: 90% !important;
+  max-width: 440px !important;
+  margin-bottom: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 25px !important;
+  cursor: pointer !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  z-index: 10;
+
+  /* The Key to Modernity: Layered Box Shadows */
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.05), /* Tiny top highlight */
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.2), /* Tiny bottom shadow */
+    0 15px 40px rgba(0, 0, 0, 0.4), /* Main card shadow */
+    0 5px 15px rgba(0, 0, 0, 0.2); /* Softer falloff */
+}
+
+.glass-menu-card:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-8px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.6), /* Deeper shadow on hover */
+    0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Typography Refresh (Sleeker, clearer hierarchy) */
+.card-content h2 {
+  color: #ffffff !important;
+  font-size: 1.4rem !important; /* Slightly larger */
+  font-weight: 500 !important; /* Lighter weight is more modern */
+  margin: 0 !important;
+  letter-spacing: -0.02em !important; /* Tight geometric style */
+}
+
+.card-content p {
+  color: rgba(255, 255, 255, 0.5) !important; /* Softer gray */
+  font-size: 0.95rem !important;
+  margin: 6px 0 0 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* Modern Icon Container */
+.card-icon {
+  color: #3b82f6 !important; /* Brighter Blue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1); /* Subtle blue halo */
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+/* Update your existing portal.css with these specific additions */
+
+.portal-header {
+  z-index: 10;
+  text-align: center;
+  margin-bottom: 40px; /* Reduced slightly for better balance with grid */
+}
+
+.portal-title {
+  color: #ffffffdc;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.title-accent {
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+/* THE GRID SYSTEM */
+.menu-grid {
+  z-index: 10;
+  display: grid !important;
+  /* This creates two columns */
+  grid-template-columns: repeat(2, 1fr) !important; 
+  gap: 25px !important;
+  width: 100% !important;
+  max-width: 950px !important; /* Prevents cards from getting too wide */
+  padding: 20px !important;
+  box-sizing: border-box;
+}
+
+/* Adjust the card to remove manual margins and handle the width automatically */
+.glass-menu-card {
+  /* ... keep your previous styling ... */
+  width: 100% !important; /* Grid now controls width */
+  max-width: none !important; 
+  margin-bottom: 0 !important; /* Gaps are handled by the grid 'gap' property */
+}
+
+/* Responsiveness: Stack into one column on smaller screens */
+@media (max-width: 850px) {
+  .menu-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 500px !important;
+  }
+  
+  .portal-title {
+    font-size: 2.2rem;
+  }
+}

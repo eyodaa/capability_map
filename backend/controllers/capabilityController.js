@@ -36,11 +36,11 @@ exports.getCapabilities = async (req, res) => {
 exports.updateCapability = async (req, res) => {
   try {
     const id = req.params.id;
-    const { description, maturity_level } = req.body;
+    const { name,description, maturity_level } = req.body;
 
     const [result] = await db.query(
-      `UPDATE capabilities SET description = ?, maturity_level = ? WHERE id = ?`,
-      [description, maturity_level, id]
+      `UPDATE capabilities SET name = ?, description = ?, maturity_level = ? WHERE id = ?`,
+      [name,description, maturity_level, id]
     );
 
     res.json({
@@ -62,8 +62,8 @@ exports.saveAll = async (req, res) => {
       const mLevel = parseInt(cap.maturity_level, 10);
 
       await db.query(
-  "UPDATE capabilities SET maturity_level = ?, description = ? WHERE id = ?",
-  [mLevel, cap.description || "", cap.id]
+  "UPDATE capabilities SET name = ?, maturity_level = ?, description = ? WHERE id = ?",
+  [cap.name, mLevel, cap.description || "", cap.id]
 );
     }
 
@@ -74,13 +74,94 @@ exports.saveAll = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-exports.createCapability = async (req, res) => {
-  const { name, description, maturity_level, parent_id } = req.body;
+exports.createCapabilityTree = async (req, res) => {
+  console.log("REQ BODY:", req.body);
 
-  await db.query(
-    "INSERT INTO capabilities (name, description, maturity_level, parent_id) VALUES (?, ?, ?, ?)",
-    [name, description, maturity_level, parent_id || null]
-  );
+  const capabilities = req.body;
 
-  res.json({ message: "Created" });
+  if (!Array.isArray(capabilities)) {
+    return res.status(400).json({ error: "Expected an array" });
+  }
+
+  const connection = await db.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    for (const cap of capabilities) {
+      const { id, name, description, maturity_level, parent_id } = cap;
+
+      if (!id || !name) {
+        throw new Error("ID and Name are required");
+      }
+
+      await connection.query(
+        `INSERT INTO capabilities 
+        (id, name, description, maturity_level, parent_id) 
+        VALUES (?, ?, ?, ?, ?)`,
+        [
+          id,
+          name,
+          description || "",
+          maturity_level || 1,
+          parent_id || null
+        ]
+      );
+    }
+
+    await connection.commit();
+
+    res.json({ message: "Tree created successfully ✅" });
+
+  } catch (err) {
+    await connection.rollback();
+    console.error("Tree creation error FULL:", err);
+
+    res.status(500).json({
+      error: err.message,
+      hint: "Check for duplicate IDs or invalid parent_id"
+    });
+  } finally {
+    connection.release();
+  }
+};
+exports.deleteCapability = async (req, res) => {
+
+  try {
+
+    const id = req.params.id;
+
+    const sql = `
+      DELETE FROM capabilities
+      WHERE id = ?
+    `;
+
+    db.query(sql, [id], (err, result) => {
+
+      if (err) {
+
+        console.error(err);
+
+        return res.status(500).json({
+          error: err.message
+        });
+
+      }
+
+      res.json({
+        message: "Capability deleted successfully"
+      });
+
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).json({
+      error: err.message
+    });
+
+  }
+
 };

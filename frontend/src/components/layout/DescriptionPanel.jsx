@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateCapability } from "../../services/capabilityService";
-
+import "./DescriptionPanel.css";
 const DescriptionPanel = ({ item, refreshCapabilities, updateCapabilityLocal }) => {
 
   const [isEditing, setIsEditing] = useState(false);
@@ -17,9 +17,9 @@ const DescriptionPanel = ({ item, refreshCapabilities, updateCapabilityLocal }) 
 
   if (!item) {
     return (
-      <aside className="w-96 bg-slate-50 border-l border-slate-200 flex items-center justify-center p-10 text-center">
-        <div className="border-2 border-dashed border-slate-200 rounded-3xl p-8">
-          <p className="text-slate-400 font-medium">
+      <aside className="w-96 bg-blue-700 border-l border-blue-900 flex items-center justify-center p-10 text-center">
+        <div className="border-2 border-dashed border-blue-900 rounded-3xl p-8">
+          <p className="text-blue-200 font-medium">
             Select a Capability Node to inspect details
           </p>
         </div>
@@ -49,8 +49,7 @@ const handleSave = async () => {
   console.log("Local state updated. Click 'Save to Database' to persist.");
 };
   return (
-    <aside className="w-96 bg-white border-l border-slate-200 flex flex-col shadow-inner">
-
+<aside className="w-96 bg-blue-700 border-l border-blue-900 flex flex-col shadow-inner text-white">
       
       <div className="p-6 border-b border-slate-100 bg-slate-50/50">
 

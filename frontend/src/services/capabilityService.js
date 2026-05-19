@@ -23,3 +23,8 @@ export const createCapability = (data) => {
     data
   );
 };
+export const deleteCapability = (id) => {
+  return axios.delete(
+    `${API}/capabilities/${id}`
+  );
+};

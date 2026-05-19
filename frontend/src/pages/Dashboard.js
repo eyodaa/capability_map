@@ -8,18 +8,17 @@ import {
 import DescriptionPanel from "../components/layout/DescriptionPanel";
 import { computeCapabilityMaturity } from "../utils/capabilityUtils";
 import "./dashboard.css";
-
+import Header from "./header"; // Import the new header component 
 function Dashboard() {
   const [boxes, setBoxes] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [showPanel, setShowPanel] = useState(false);
 
-  // ✅ Single source of truth
-  const selectedDescription = boxes.find(
-    (box) => box.id === selectedId
-  );
+  // ✅ Single source of truth for the description panel
+  const selectedDescription = boxes.find((box) => box.id === selectedId);
 
-  // ✅ FIXED FUNCTION
+  // ✅ FIXED: Removed the undefined 'capability' reference
   const updateCapabilityLocal = (id, updates) => {
     setBoxes((prev) => {
       const updated = prev.map((box) =>
@@ -28,13 +27,11 @@ function Dashboard() {
 
       const maturityMap = computeCapabilityMaturity(updated);
 
-      const finalUpdated = updated.map((box) => ({
+      return updated.map((box) => ({
         ...box,
         maturity_level:
           maturityMap[box.id]?.calculated_maturity || box.maturity_level
       }));
-
-      return finalUpdated; // ✅ ONLY return here
     });
   };
 
@@ -52,9 +49,7 @@ function Dashboard() {
       }));
 
       console.log("Saving computed values to DB:", finalDataToSave);
-
       await saveAllCapabilities({ capabilities: finalDataToSave });
-
       alert("Full hierarchy saved successfully!");
     } catch (err) {
       console.error("Save Error:", err);
@@ -85,6 +80,8 @@ function Dashboard() {
       }));
 
       setBoxes(computedData);
+      setSelectedId(null); // Reset selection when parent changes
+      setShowPanel(false);  // Close panel on fresh load
     } catch (error) {
       console.error("Fetch error:", error);
     }
@@ -92,6 +89,7 @@ function Dashboard() {
 
   const handleBoxClick = async (capability) => {
     setSelectedId(capability.id);
+    // ✅ Logic changed: Removed setShowPanel(true) to prevent auto-opening
 
     try {
       const res = await getCapabilities(capability.id);
@@ -111,7 +109,6 @@ function Dashboard() {
         }));
 
         const updated = [...prev, ...childrenWithLevel];
-
         const maturityMap = computeCapabilityMaturity(updated);
 
         return updated.map((box) => ({
@@ -126,14 +123,26 @@ function Dashboard() {
   };
 
   return (
-    <div className="dashboard">
+    <div className={`dashboard ${showPanel ? "panel-open" : "panel-closed"}`}>
+     
       <div className="sidebar">
         <Sidebar onParentSelect={handleParentSelect} />
       </div>
 
       <div className="main">
         <div className="header">
-          <h2>Capability Map</h2>
+          
+          <div className="header-left">
+            <h2>Capability Map</h2>
+            {selectedId && (
+              <button 
+                className="btn-toggle-panel"
+                onClick={() => setShowPanel(!showPanel)}
+              >
+                {showPanel ? "Hide Details" : "Show Details"}
+              </button>
+            )}
+          </div>
 
           <button
             onClick={handleGlobalSave}
@@ -152,12 +161,15 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="details">
-        <DescriptionPanel
-          item={selectedDescription}
-          updateCapabilityLocal={updateCapabilityLocal}
-        />
-      </div>
+      {showPanel && (
+        <div className="details">
+           <button className="close-panel" onClick={() => setShowPanel(false)}>×</button>
+           <DescriptionPanel
+            item={selectedDescription}
+            updateCapabilityLocal={updateCapabilityLocal}
+          />
+        </div>
+      )}
     </div>
   );
 }

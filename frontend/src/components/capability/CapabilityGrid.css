@@ -5,13 +5,65 @@
 }
 
 .capability-box {
+  background: #ffffff;
+  border-radius: 14px;
   padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  min-height: 150px;
+
   cursor: pointer;
-  text-align: center;
-  font-weight: 500;
-  transition: 0.2s;
+
+  border: 1px solid #dbe3ef;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.capability-box:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.capability-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.capability-header h4 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #1e293b;
+
+  line-height: 1.4;
+}
+
+.maturity-dot {
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  flex-shrink: 0;
+}
+
+.maturity-text {
+  margin-top: auto;
+
+  color: #475569;
+
+  font-size: 14px;
 }
 
 .capability-box:hover {
@@ -33,17 +85,8 @@
 .sidebar-item:hover {
   background: #ddd;
 }
-/* Level 1 - Parent (Green) */
-.box-level-1 { background-color: #1e7e34; color: white; }
-/* Level 2 - Sub-parent (Orange) */
-.box-level-2 { background-color: #856404; color: white; }
-/* Level 3 - Children (Red) */
-.box-level-3 { background-color: #a52821; color: white; }
-.nested-grid-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+
+
 
 .capability-group {
   background-color: #fcfcfc;

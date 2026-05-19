@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getParents } from "../../services/capabilityService";
 import { Link } from "react-router-dom";
-
+import logo from "../../Dashen-Bank-Logo-Addis-Ababa-Ethiopia.png";
 function Sidebar({ onParentSelect }) {
 
   const [parents, setParents] = useState([]);
@@ -17,11 +17,12 @@ function Sidebar({ onParentSelect }) {
 
   return (
 
+
+
     <div className="sidebar">
- <h2>              <Link to="/table">Table View</Link>    </h2>    
-<h2><Link to="/explorer">Capability Explorer</Link> </h2>
- 
-     < h2><Link to="/add">Add Capability</Link> </h2>
+      <img src={logo} alt="Logo" style={{ width: "80px", height: "auto" }} />
+    
+
       <h3>Capabilities </h3>
 
 
